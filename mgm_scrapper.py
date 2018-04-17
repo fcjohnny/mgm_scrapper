@@ -26,11 +26,7 @@ def main():
     #print(date.strftime('%Y-%m-%d,'+price))
     date = date + delta_1_day
   if len(sys.argv) > 1 and sys.argv[1] == "json":
-    json_encoded = write_json(price_list)
-    with open(datetime.datetime.today().strftime('%Y-%m-%d')+'.json','w') as \
-    jsonfile:
-      for line in json_encoded:
-        jsonfile.write(line)
+    write_json(price_list)
   else:
     write_csv(price_list)
   driver.close()
@@ -42,7 +38,10 @@ def write_csv(data):
 
 def write_json(data):
   json_encoded = json.JSONEncoder().encode(data)
-  return json_encoded
+  with open(datetime.datetime.today().strftime('%Y-%m-%d')+'.json','w') as \
+  jsonfile:
+    for line in json_encoded:
+      jsonfile.write(line)
 
 if __name__ == "__main__":
   main()
